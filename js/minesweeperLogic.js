@@ -123,7 +123,7 @@ function showMap(map){
     gameZone.style.height = gameZoneSize * document.querySelector('.cell').offsetHeight +'px';
 }
 
-function cellCheck(cellClass){
+function cellCheck(cellClass, cell){
 
     cellClass.remove('partition');
     
@@ -134,12 +134,20 @@ function cellCheck(cellClass){
         document.querySelectorAll('.cell').forEach(e => {
             e.classList.remove('partition');
         });
+    } else {
+        if (cell.textContent  != '1' && cell.textContent  != '2' && cell.textContent  != '3' && cell.textContent  != '4' && cell.textContent  != '5' && cell.textContent  != '6' && cell.textContent  != '7' && cell.textContent  != '8' && cell.classList.contains('bomb') == false) {
+            document.querySelectorAll('.cell').forEach(e => {
+                console.log(2);
+                if (e.textContent  != '1' && e.textContent  != '2' && e.textContent  != '3' && e.textContent  != '4' && e.textContent  != '5' && e.textContent  != '6' && e.textContent  != '7' && e.textContent  != '8' && e.classList.contains('bomb') == false) {
+                    console.log(3);
+                    e.classList.remove('partition');
+                }
+            });
+        }
     }
     
-    if (!cellClass.contains('bomb'))
+    if (!cellClass.contains('bomb') && cell.textContent == ' ')
     {
-        cellClass.remove('partition');
-
     }
 }
 
@@ -150,6 +158,14 @@ showMap(map);
 
 document.querySelectorAll('.cell').forEach(e => {
     e.onclick = function () {
-        cellCheck(e.classList);
+        cellCheck(e.classList, e);
+    };
+    
+    e.contextmenu = function () {
+        e.preventDefault()
     };
 });
+
+// window.addEventListener('contextmenu', (event) => {
+//     event.preventDefault()
+//   })
